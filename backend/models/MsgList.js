@@ -1,6 +1,10 @@
 const mongoose=require('mongoose');
 
 const MsgListSchema=new mongoose.Schema({
+    boardid:  {
+        type: String,
+        required: true
+    },
     id:     {
         type: String,
         required: true

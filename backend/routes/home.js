@@ -2,40 +2,78 @@ const { response } = require('express');
 var express = require('express');
 var router = express.Router();
 const path = require('path');
-// const messages = require('../public/MsgList.js');
-var MsgList = require('../models/MsgList');
+// var MsgList = require('../models/Board');
+const BoardList = require('../models/BoardList.js');
+const MsgList = require('../models/MsgList.js');
 // var retdata=messages;
-
-router.get('/',(req,res)=>{
-    MsgList.find({},(err,results)=>{
+router.get('/boardlist',(req,res)=>{
+    BoardList.find({},(err,result)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.json(result);
+        }
+    })
+})
+router.get('/msglist',(req,res)=>{
+    MsgList.find({},(err,result)=>{
+        res.json(result);
+    })
+})
+router.get('/delete/:boardid',(req,res)=>{
+    BoardList.deleteOne({boardid:req.params.boardid},(err,result)=>{
+        if(err){
+            console.log("couldn't delete "+ req.params.boardid)
+        }else{
+            MsgList.deleteMany({boardid:req.params.boardid},(err,result)=>{
+                if(err) {console.log("error: "+ err)}
+                else{
+                    res.send("deleted "+ req.params.boardid)
+                }
+            })
+        }
+    })
+})
+router.get('/board/:boardid',(req,res)=>{
+    MsgList.find({boardid: req.params.boardid},(err,results)=>{
         if(err){
             console.log("errors: \n" + err);
         }
         else{
-            console.log("results:");
-            console.log(results);
             res.json(results);
         }
     })
-    // res.send("OK");
 });
-router.post('/',(req,res)=>{
-    MsgList.countDocuments({},(err,results)=>{
+router.post('/board/:boardid',(req,res)=>{
+    const _boardid=req.params.boardid;
+    MsgList.countDocuments({boardid:req.params.boardid},(err,results)=>{
         if(err){
             console.log(err);
         }else{
-            console.log(results);
-            const id=results+1;
-            const date=req.body.date
-            const content=req.body.msgcontent
             const newMsg= new MsgList({
-                id,
-                date,
-                content
+                boardid:req.params.boardid,
+                id:results+1,
+                date:req.body.date,
+                content:req.body.msgcontent
             })
             newMsg.save()
             .then(
-                res.send("msg created")
+                BoardList.find({boardid:_boardid},(err,result)=>{
+                    if(err){console.log(err)}
+                    else{
+                        if(result.length==0){
+                            console.log(result)
+                            const newBoard=new BoardList({
+                                boardid:_boardid
+                            })
+                            newBoard.save()
+                            .then(
+                                res.send("msg created")
+                            )
+                        }
+                    }
+                })
             )
             .catch(err=>console.log(err))
         }

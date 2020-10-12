@@ -6,15 +6,24 @@ const path = require('path');
 const BoardList = require('../models/BoardList.js');
 const MsgList = require('../models/MsgList.js');
 // var retdata=messages;
-router.get('/boardlist',(req,res)=>{
+router.get('/boardlist/:id',(req,res)=>{
+    var id=req.params.id.toLowerCase();
     BoardList.find({},(err,result)=>{
         if(err){
             console.log(err)
         }
         else{
-            res.json(result);
+            var boardlist=result.filter(board=>
+                board.boardid.startsWith(id)
+            )
+            res.json(boardlist);
         }
     })
+})
+router.get('/boardlist/',(req,res)=>{
+    var result=[]
+    res.json(result)
+    
 })
 router.get('/msglist',(req,res)=>{
     MsgList.find({},(err,result)=>{

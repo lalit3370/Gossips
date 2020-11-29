@@ -21,9 +21,22 @@ router.get('/boardlist/:id',(req,res)=>{
     })
 })
 router.get('/boardlist/',(req,res)=>{
-    var result=[]
-    res.json(result)
-    
+    var boardList=[]
+    res.json(boardList);
+})
+router.get('/fullboardlist/',(req,res)=>{
+    var boardList=[]
+    BoardList.find({},(err,result)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            
+            boardList=result;
+            console.log(boardList)
+            res.json(result)
+        }
+    })
 })
 router.get('/msglist',(req,res)=>{
     MsgList.find({},(err,result)=>{

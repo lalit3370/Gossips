@@ -5,12 +5,15 @@ const axios = require("axios");
 
 function CreateMsg(props) {
   function submitdata(values) {
+    let tempdate={};
     axios
       .post("http://localhost:5000/board/"+props.data.boardId, {
         msgcontent: values.message,
-        date: Date(),
+        date: Date,
       })
       .then(function (response) {
+        tempdate=Date;
+        console.log(tempdate)
       })
       .catch(function (error) {
         console.log(error);

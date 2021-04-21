@@ -18,6 +18,7 @@ export default function Home() {
         <Typography color="textPrimary" variant="h3">
           Gossips
         </Typography>
+        <br></br>
         <Asynchronous />
       </Box>
     </Box>

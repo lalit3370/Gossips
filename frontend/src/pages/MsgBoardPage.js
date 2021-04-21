@@ -6,8 +6,20 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import CreateMsg from "../components/CreateMsg";
 import MsgComponent from "../components/MsgComponent.js";
+import AppBar from "@material-ui/core/AppBar";
+import Link from "@material-ui/core/Link";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { useHistory } from "react-router-dom";
+
+const useStyle = makeStyles(() => ({
+  appbar: {
+    padding: 12,
+  },
+}));
 
 export default function MsgBoardPage(match) {
+  let history = useHistory();
+  const classes = useStyle();
   const theme = useTheme();
   var [messages, setMessages] = useState([]);
   var [count, setcount] = useState(0);
@@ -40,6 +52,27 @@ export default function MsgBoardPage(match) {
       flex={1}
       height="98vh"
     >
+      <Box padding={0}>
+        <AppBar
+          position="static"
+          color="transparent"
+          className={classes.appbar}
+        >
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link
+              color="inherit"
+              href="/"
+              onClick={(e) => {
+                history.push("/");
+              }}
+            >
+              Home
+            </Link>
+            <Typography color="textPrimary">{boardId}</Typography>
+          </Breadcrumbs>
+        </AppBar>
+      </Box>
+
       <Box>
         <Typography variant="h2" color="textPrimary">
           {boardId}

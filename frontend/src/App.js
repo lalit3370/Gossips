@@ -1,14 +1,9 @@
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import MsgBoardPage from "./pages/MsgBoardPage";
 import Home from "./pages/HomePage";
-
-import {
-  createMuiTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import MsgBoardPage from "./pages/MsgBoardPage";
 
 function App() {
   const theme = createMuiTheme({

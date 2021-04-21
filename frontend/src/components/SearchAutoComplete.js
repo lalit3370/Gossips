@@ -1,5 +1,5 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import fetch from "cross-fetch";
@@ -36,7 +36,7 @@ export default function Asynchronous() {
       let response = await fetch(url);
       let boards = await response.json();
       let boardsArray = Object.keys(boards).map((key) => boards[key]);
-      if (boardsArray.length == 0) {
+      if (boardsArray.length === 0) {
         boardsArray = [];
       }
       setOptions(boardsArray);

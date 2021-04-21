@@ -6,6 +6,7 @@ import fetch from "cross-fetch";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+require("dotenv").config();
 const useStyles = makeStyles((theme) => ({
   inputBox: {
     position: "relative",
@@ -24,15 +25,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Asynchronous() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
   const [inputval, setInputval] = React.useState("");
   let history = useHistory();
   React.useEffect(() => {
+    var url = `${process.env.REACT_APP_BASEURL}/boardlist/${inputval}`;
     (async () => {
-      let response = await fetch("http://localhost:5000/boardlist/" + inputval);
+      let response = await fetch(url);
       let boards = await response.json();
       let boardsArray = Object.keys(boards).map((key) => boards[key]);
       if (boardsArray.length == 0) {
@@ -43,7 +44,6 @@ export default function Asynchronous() {
   }, [inputval]);
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(inputval);
     history.push(`/board/${inputval}`);
   }
   return (

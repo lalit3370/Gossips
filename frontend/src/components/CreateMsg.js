@@ -1,12 +1,15 @@
 import React from "react";
 import { Button, TextField } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
+require("dotenv").config();
 const axios = require("axios");
 
 function CreateMsg(props) {
   function submitdata(values) {
+    const url = `${process.env.REACT_APP_BASEURL}/board/${props.data.boardId}`;
+
     axios
-      .post("http://localhost:5000/board/" + props.data.boardId, {
+      .post(url, {
         msgcontent: values.message,
         date: Date,
       })

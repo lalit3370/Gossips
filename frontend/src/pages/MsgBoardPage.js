@@ -10,7 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Link from "@material-ui/core/Link";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { useHistory } from "react-router-dom";
-
+require("dotenv").config();
 const useStyle = makeStyles(() => ({
   appbar: {
     padding: 12,
@@ -24,7 +24,9 @@ export default function MsgBoardPage(match) {
   var [messages, setMessages] = useState([]);
   var [count, setcount] = useState(0);
   const boardId = match.match.params.id;
-  const url = "http://localhost:5000/board/" + boardId;
+  // const url = "http://localhost:5000/board/" + boardId;
+  const url = `${process.env.REACT_APP_BASEURL}/board/${boardId}`;
+  console.log(url);
   useEffect(() => {
     axios
       .get(url)

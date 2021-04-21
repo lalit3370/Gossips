@@ -11,8 +11,6 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindA
     .then(()=>console.log("MongoDB Connected..."))
     .catch(err=>console.log(err));
 var server = express();     
-server.set('view engine', 'ejs');
-server.set('views', 'views');
 server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());

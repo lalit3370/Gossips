@@ -3,9 +3,9 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import axios from "axios";
 import "fontsource-roboto";
 import React, { useEffect, useState } from "react";
-import "./App.css";
-import CreateMsg from "../src/components/CreateMsg";
-import MsgComponent from "../src/components/MsgComponent.js";
+import "../App.css";
+import CreateMsg from "../components/CreateMsg";
+import MsgComponent from "../components/MsgComponent.js";
 
 export default function MsgBoardPage(match) {
   const theme = useTheme();

@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@material-ui/core";
 import "fontsource-roboto";
 import React from "react";
-import Asynchronous from "../src/components/SearchAutoComplete";
+import Asynchronous from "../components/SearchAutoComplete";
 export default function Home() {
   const theme = useTheme();
   return (
